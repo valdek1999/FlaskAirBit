@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>The adding code</h1>
+<form action="" method="post" novalidate> {#novalidate- обозначает что форму будет проверять программа а не html#}
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.jscode.label }}<br>
+        {{ form.jscode }}
+        {% for error in form.jscode.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(size=45) }}
+        {% for error in form.jscode.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+    {% extends "base.html" %}
+
+    {% block content %}
+    <body>
+            <h1>Список:</h1>
+            <hr>
+            {% for i in range(0, len): %}
+        <div>
+            <p>Id json: <a href="{{ url_for('data', id = i ) }}">{{ data_list[i].id }}</a> </p>
+            <p>fport: {{ data_list[i].fport }} </p>
+            <p>typepacket: {{ list_id_packet[i] }} </p>
+            <p><b>Сreated</b> {{ data_list[i].created }}</p>
+        </div>
+            <hr>
+            {% endfor %}
+    </body>
+    {% endblock content %}

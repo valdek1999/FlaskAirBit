@@ -1,0 +1,28 @@
+<html>
+    <head>
+            {% if title %}
+            <title>{{title}} - Flask App</title>
+            {% else %}
+            <title> Flask App</title>
+            {%endif%}
+    </head>
+    <body>
+        <div>Flask App:
+            <a href="{{ url_for('index') }}">List jscodes</a>
+            <a href="{{ url_for('add_jscode') }}">Add jscode</a>
+            <a href="{{ url_for('data_list') }}">List data of json</a>
+        </div>
+
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,42 @@
+    {% extends "base.html" %}
+
+    {% block content %}
+    <body>
+        <div>
+            <ul>
+            {% if data_parse.type_packet == 1 %}
+                {
+                <li>type_packet:{{ data_parse.type_packet }}</li>
+                <li>battery_charge:{{ data_parse.battery_charge }}</li>
+                <li>option_values:
+                    <ul>{
+                        <li>type_activation:{{ data_parse.option_values.type_activation }}</li>
+                        <li>period_output:{{ data_parse.option_values.period_output }}</li>
+                        <li>type_first_input:{{ data_parse.option_values.type_first_input }}</li>
+                        <li>type_second_input:{{ data_parse.option_values.type_second_input }}</li>
+                        <li>type_third_input:{{ data_parse.option_values.type_third_input }}</li>
+                        <li>type_fourth_input:{{ data_parse.option_values.type_fourth_input }}</li>
+                        }
+                    </ul>
+                </li>
+                <li>utc_time:{{ data_parse.utc_time}}</li>
+                <li>temp:{{ data_parse.temp}}</li>
+                <li>indication_1:{{ data_parse.indication_1 }}</li>
+                <li>indication_2:{{ data_parse.indication_2 }}</li>
+                <li>indication_3:{{ data_parse.indication_3 }}</li>
+                <li>indication_4:{{ data_parse.indication_4 }}</li>
+                }
+            {% elif data_parse.type_packet == 255 %}
+                {
+                <li>type_packet:{{ data_parse.type_packet }}</li>
+                <li>generation_utc_time:{{ data_parse.generation_utc_time }}</li>
+                }
+            {% else %}
+                {
+                {{ data_parse }}
+                }
+            {% endif %}
+            </ul>
+        </div>
+    </body>
+    {% endblock content %}
