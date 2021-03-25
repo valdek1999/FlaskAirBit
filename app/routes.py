@@ -1,6 +1,6 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from app import app, engine
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app.forms import AddJscodeForm
 from app import models
 from app import js_wrapper
@@ -32,7 +32,6 @@ def add_jscode():
         id = 1
         text_code = form.jscode.data
         description = form.description.data
-        request = "SHOW TABLES LIKE 'Jscode'"
         db_session = scoped_session(sessionmaker(autocommit=False,
                                                  autoflush=False,
                                                  bind=engine))
@@ -58,16 +57,20 @@ def jscode_pick(js_id):
     return render_template('jscode_pick.html', jscode=jscode)
 
 
-@app.route('/data_list')
+@app.route('/data_list', methods=['GET'])
 def data_list():
     title = "Информация о СИ-12 устройстве"
-    data_list = SingletonResponce.SingletonResponse(True)
+    page = int(request.args.get('page'))
+    if page == 1:
+        data_list = SingletonResponce.SingletonResponse(True)
+    else:
+        data_list = SingletonResponce.SingletonResponse(False)
     list_id_packet = []
     for temp in data_list:
         id = base64.b64decode(temp['data'])[0]
         list_id_packet.append(id)
     return render_template('data_list.html', title=title, data_list=data_list, len=len(data_list),
-                           list_id_packet=list_id_packet)
+                           list_id_packet=list_id_packet, page=page)
 
 
 @app.route('/data_list/data/<int:id>')
